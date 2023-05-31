@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sirup.service.auth.rpc.proto";
+option java_outer_classname = "Auth";
+option objc_class_prefix = "SAS";
+
+package auth.v1;
+
+service SirupAuthService {
+    rpc Token(TokenRequest) returns (TokenResponse) {}
+    rpc Auth(AuthRequest) returns (AuthResponse) {}
+}
+
+message TokenRequest {
+    CredentialsRpc credentials = 1;
+}
+
+message TokenResponse {
+    ErrorRpc error = 1;
+    string token = 2;
+}
+
+message AuthRequest {
+    string token = 1;
+    CredentialsRpc credentials_rpc = 2;
+}
+
+message AuthResponse {
+    ErrorRpc error = 1;
+    bool token_valid = 2;
+}
+
+message CredentialsRpc {
+    string user_id = 1;
+}
+
+message ErrorRpc {
+    int32 status = 1;
+    string error_message = 2;
+}

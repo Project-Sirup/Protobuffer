@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sirup.service.diag.rpc.proto";
+option java_outer_classname = "Diagnostics";
+option objc_class_prefix = "SAS";
+
+package diag.v1;
+
+service SirupDiagnosticsService {
+    rpc RunDiagnostics(DiagnosticsRequest) returns (DiagnosticsResponse) {}
+}
+
+message DiagnosticsRequest {
+    string token = 1;
+    string user_id = 2;
+}
+
+message DiagnosticsResponse {
+    Report report = 1;
+}
+
+message Report {
+    int64 total_time = 1;
+    repeated Vitals vitals = 2;
+}
+
+message Vitals {
+    string service_name = 1;
+    bool running = 2;
+    int64 response_time = 3;
+}

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sirup.service.log.rpc.proto";
+option java_outer_classname = "Log";
+option objc_class_prefix = "SAS";
+
+package log.v2;
+
+service SirupLogService {
+    rpc Health(HealthRequest) returns (HealthResponse) {}
+    rpc Debug(DebugRequest) returns (DebugResponse) {}
+    rpc Info(InfoRequest) returns (InfoResponse) {}
+    rpc Warn(WarnRequest) returns (WarnResponse) {}
+    rpc Error(ErrorRequest) returns (ErrorResponse) {}
+}
+
+message HealthRequest {
+}
+
+message HealthResponse {
+    int32 health_code = 1;
+}
+
+message DebugRequest {
+    LogRequest log_request = 1;
+}
+
+message DebugResponse {
+    LogResponse log_response = 1;
+}
+
+message InfoRequest {
+    LogRequest log_request = 1;
+}
+
+message InfoResponse {
+    LogResponse log_response = 1;
+}
+
+message WarnRequest {
+    LogRequest log_request = 1;
+}
+
+message WarnResponse {
+    LogResponse log_response = 1;
+}
+
+message ErrorRequest {
+    LogRequest log_request = 1;
+}
+
+message ErrorResponse {
+    LogResponse log_response = 1;
+}
+
+message LogRequest {
+    string message = 1;
+    string sender_service = 2;
+}
+
+message LogResponse {
+    int32 code = 1;
+}
